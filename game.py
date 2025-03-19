@@ -12,7 +12,7 @@ class Game:
         self.running = True
         self.text = MoveText("Samuel", 50, WHITE, SCREEN_WIDTH, SCREEN_HEIGHT)
 
-    def events(self):
+    def handle_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
@@ -23,10 +23,10 @@ class Game:
 
                     
     
-    def update(self):
+    def update_text_position(self):
         self.text.update()
     
-    def draw(self):
+    def draw_screen(self):
         self.screen.fill(BLACK)
         self.text.draw(self.screen)
         pygame.display.flip()
@@ -34,9 +34,9 @@ class Game:
 
     def run(self):
         while self.running:
-            self.events()
-            self.update()
-            self.draw()
+            self.handle_events()
+            self.update_text_position()
+            self.draw_screen()
             self.clock.tick(FPS)
         pygame.quit()
         sys.exit()

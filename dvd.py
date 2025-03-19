@@ -18,16 +18,16 @@ class MoveText:
         self.screen_width = screen_width
 
         
-    def _get_random_velocity(self, Avelocity = 0):
+    def _get_random_velocity(self, current_speed = 0):
         random_velocity = random.randint(MIN_SPEED, MAX_SPEED)
         
-        if Avelocity < 0:
+        if current_speed < 0:
             return random_velocity
         else:
             return -random_velocity
 
     
-    def _get_random_color(self):
+    def _set_random_color(self):
         self.color = (random.randint(50, 255), random.randint(50, 255), random.randint(50, 255))
         self.text_surf = self.font.render(self.text, True, self.color)
             
@@ -39,20 +39,20 @@ class MoveText:
         if self.rect.left <= 0:
             self.speed_x = self._get_random_velocity(self.speed_x)
             self.rect.left = 0            
-            self._get_random_color()
+            self._set_random_color()
         elif self.rect.right >= self.screen_width:
             self.speed_x = self._get_random_velocity(self.speed_x)
             self.rect.right = self.screen_width
-            self._get_random_color()
+            self._set_random_color()
         
         if self.rect.top <= 0:
             self.speed_y = self._get_random_velocity(self.speed_y)
             self.rect.top = 0
-            self._get_random_color()
+            self._set_random_color()
         elif self.rect.bottom >= self.screen_height:
             self.speed_y = self._get_random_velocity(self.speed_y)
             self.rect.bottom = self.screen_height
-            self._get_random_color()
+            self._set_random_color()
 
     def draw(self, screen):
         screen.blit(self.text_surf, self.rect)
