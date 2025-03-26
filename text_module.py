@@ -21,15 +21,29 @@ class MoveText:
         pass
 
 
+class HorizontalMoveText(MoveText):
+    def __init__(self, text, font_size, text_color, speed_y):
+        super().__init__(text, font_size, text_color)
+        self.speed_y = speed_y    
+    
+    def update(self):
+        self.rect.y = max(0, min((self.rect.y + self.speed_y), SCREEN_HEIGHT - self.rect.height))
+        is_colliding_y = self.rect.top <= 0 or self.rect.bottom >= SCREEN_HEIGHT
+
+        if is_colliding_y:
+            self.speed_y *= -1
+            self._set_random_color()
+
+    def draw(self, screen):
+        screen.blit(self.text_surf, self.rect)
+
 class VerticalMoveText(MoveText):
     def __init__(self, text, font_size, text_color, speed_x):
         super().__init__(text, font_size, text_color)
         self.speed_x = speed_x    
     
-    
     def update(self):
         self.rect.x = max(0, min((self.rect.x + self.speed_x), SCREEN_WIDTH - self.rect.width))
-
         is_colliding_x = self.rect.left <= 0 or self.rect.right >= SCREEN_WIDTH
 
         if is_colliding_x:
@@ -37,5 +51,4 @@ class VerticalMoveText(MoveText):
             self._set_random_color()
 
     def draw(self, screen):
-        screen.blit(self.text_surf, self.rect)
-        
+        screen.blit(self.text_surf, self.rect)        

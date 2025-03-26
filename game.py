@@ -1,6 +1,6 @@
 import sys
 import pygame
-from text_module import VerticalMoveText
+from text_module import VerticalMoveText, HorizontalMoveText
 from config import SCREEN_WIDTH,SCREEN_HEIGHT,BLACK,WHITE,FPS
 
 class Game:
@@ -10,7 +10,7 @@ class Game:
         pygame.display.set_caption('DVD')
         self.clock = pygame.time.Clock()
         self.running = True
-        self.text = VerticalMoveText("Samuel", 50, WHITE, 5)
+        self.text = HorizontalMoveText("Samuel", 50, WHITE, 5)
 
     def handle_events(self):
         for event in pygame.event.get():
