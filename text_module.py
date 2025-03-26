@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 import random
 
 from config import MAX_SPEED, MIN_SPEED, SCREEN_HEIGHT, SCREEN_WIDTH
+from color_module import ColorGenerator
 
 class MoveText:
     def __init__(self, text, font_size, text_color):
@@ -13,7 +14,7 @@ class MoveText:
         self.rect = self.text_surf.get_rect(center = (SCREEN_WIDTH/2, SCREEN_HEIGHT/2))        
     
     def _set_random_color(self):
-        self.color = (random.randint(50, 255), random.randint(50, 255), random.randint(50, 255))
+        self.color = ColorGenerator.get_random_color()
         self.text_surf = self.font.render(self.text, True, self.color)
 
     @abstractmethod
