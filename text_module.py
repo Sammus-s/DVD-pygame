@@ -1,9 +1,10 @@
 import pygame
+from abc import ABC, abstractmethod
 import random
 
 from config import MAX_SPEED, MIN_SPEED, SCREEN_HEIGHT, SCREEN_WIDTH
 
-class DVDText:
+class MoveText:
     def __init__(self, text, font_size, text_color):
         self.font = pygame.font.SysFont(None, font_size)
         self.color = text_color
@@ -20,41 +21,21 @@ class DVDText:
         pass
 
 
-class MoveText(DVDText):
-    def super.__init__(self, text, font_size, text_color):
-        self.obj_text.speed_x = self._get_random_velocity()
-        self.obj_text.speed_y = self._get_random_velocity()
-
-        
-    def _get_random_velocity(self, current_speed = 0):
-        random_velocity = random.randint(MIN_SPEED, MAX_SPEED)
-        if current_speed < 0:
-            return random_velocity
-        else:
-            return -random_velocity
+class VerticalMoveText(MoveText):
+    def __init__(self, text, font_size, text_color, speed_x):
+        super().__init__(text, font_size, text_color)
+        self.speed_x = speed_x    
+    
     
     def update(self):
-        self.obj_text.rect.x += self.obj_text.speed_x
-        self.obj_text.rect.y += self.obj_text.speed_y
-            
-        if self.obj_text.rect.left <= 0:
-            self.obj_text.speed_x = self.obj_text._get_random_velocity(self.obj_text.speed_x)
-            self.obj_text.rect.left = 0
-            self.obj_text._set_random_color()
-        elif self.obj_text.rect.right >= self.obj_text.screen_width:
-            self.obj_text.speed_x = self.obj_text._get_random_velocity(self.obj_text.speed_x)
-            self.obj_text.rect.right = self.obj_text.screen_width
-            self.obj_text._set_random_color()
-        
-        if self.obj_text.rect.top <= 0:
-            self.obj_text.speed_y = self.obj_text._get_random_velocity(self.obj_text.speed_y)
-            self.obj_text.rect.top = 0
-            self.obj_text._set_random_color()
-        elif self.obj_text.rect.bottom >= self.obj_text.screen_height:
-            self.obj_text.speed_y = self.obj_text._get_random_velocity(self.obj_text.speed_y)
-            self.obj_text.rect.bottom = self.obj_text.screen_height
-            self.obj_text._set_random_color()
+        self.rect.x = max(0, min((self.rect.x + self.speed_x), SCREEN_WIDTH - self.rect.width))
+
+        is_colliding_x = self.rect.left <= 0 or self.rect.right >= SCREEN_WIDTH
+
+        if is_colliding_x:
+            self.speed_x *= -1
+            self._set_random_color()
 
     def draw(self, screen):
-        screen.blit(self.obj_text.text_surf, self.obj_text.rect)
+        screen.blit(self.text_surf, self.rect)
         
