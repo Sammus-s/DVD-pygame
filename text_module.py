@@ -1,5 +1,6 @@
 import pygame
 from abc import ABC, abstractmethod
+
 import random
 
 from config import MAX_SPEED, MIN_SPEED, SCREEN_HEIGHT, SCREEN_WIDTH
@@ -57,7 +58,12 @@ class BounceText(MoveText):
     def __init__(self, text, font_size, text_color, speed_y, speed_x):
         super().__init__(text, font_size, text_color)
         self.speed_y = speed_y   
-        self.speed_x = speed_x  
+        self.speed_x = speed_x
+
+    def bounce_text(self):
+        self.speed_y = -self.speed_y   
+        self.speed_x = -self.speed_x
+
     
     def update(self):
         self.rect.y = max(0, min((self.rect.y + self.speed_y), SCREEN_HEIGHT - self.rect.height))
@@ -73,4 +79,7 @@ class BounceText(MoveText):
         
         if is_colliding_x or is_colliding_y:
             self._set_random_color()
+        
+        if random.randint(0, 101) == 0:
+            self.bounce_text()
         
