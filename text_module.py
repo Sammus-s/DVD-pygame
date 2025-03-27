@@ -5,6 +5,7 @@ import random
 
 from config import MAX_SPEED, MIN_SPEED, SCREEN_HEIGHT, SCREEN_WIDTH
 from color_module import ColorGenerator
+from audio_handler import SoundHandler
 
 class MoveText:
     def __init__(self, text, font_size, text_color):
