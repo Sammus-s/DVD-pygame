@@ -1,6 +1,8 @@
 import sys
 import pygame
-from text_module import VerticalMoveText, HorizontalMoveText
+
+
+from text_module import VerticalMoveText, HorizontalMoveText, BounceText
 from config import SCREEN_WIDTH,SCREEN_HEIGHT,BLACK,WHITE,FPS
 
 class Game:
@@ -10,7 +12,7 @@ class Game:
         pygame.display.set_caption('DVD')
         self.clock = pygame.time.Clock()
         self.running = True
-        self.text = HorizontalMoveText("Samuel", 50, WHITE, 5)
+        self.text = BounceText("Samuel", 50, WHITE, 5, 5)
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -21,8 +23,7 @@ class Game:
                 if event.key == pygame.K_ESCAPE:
                     self.running = False
 
-                    
-    
+                        
     def update_text_position(self):
         self.text.update()
     
@@ -30,7 +31,6 @@ class Game:
         self.screen.fill(BLACK)
         self.text.draw(self.screen)
         pygame.display.flip()
-
 
     def run(self):
         while self.running:
