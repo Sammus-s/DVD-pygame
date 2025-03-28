@@ -8,3 +8,5 @@ FPS = 100
 
 MAX_SPEED = 4
 MIN_SPEED = 2
+
+BACKGROUND_MUSIC_PATH = './sounds/background_music/'

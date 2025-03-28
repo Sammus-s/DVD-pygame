@@ -19,22 +19,33 @@ class SoundHandler(AudioHandler):
 
 class MusicHandler(AudioHandler):
     """Handles background music."""
-    def __init__(self, music: str):
+    def __init__(self, music):
         super().__init__()
-        self.background_music = pygame.mixer.music
-        self.background_music.load(background_music)
-        self.background_music.play(-1)
-
-    def change_music(self, new_music):
-        """Stops current playing music, and starts a new one"""
-        self.background_music.fadeout(1000)
-        self.background_music.unload()
-        self.background_music.load(new_music)
-        self.background_music.play(-1)
+        self.music = pygame.mixer.music
+        self.music.load(music)
+        self.music.play(-1)        
 
     def toggle_music(self):
         """Plays or Pauses background music."""
-        if not self.background_music.get_busy:
-            self.background_music.unpause()
+        if not self.music.get_busy():
+            self.music.unpause()
         else:
-            self.background_music.pause()
+            self.music.pause()
+
+class MusicPlaylist():
+    
+    def __init__(self, playlist):
+        super().__init__()
+        self.playlist = playlist
+        self.music_index = 0        
+        self.music_player = MusicHandler(self.playlist[self.music_index])
+        self.music = self.music_player.music
+
+    def change_music(self, new_music):
+        """Stops current playing music, and starts a new one"""
+        self.music.unload()
+        self.music.load(new_music)
+
+    def next_music(self):
+        self.music_index = (self.music_index + 1) % len(self.playlist)
+        self.change_music(self.playlist[self.music_index])
