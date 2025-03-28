@@ -12,7 +12,7 @@ class SoundHandler(AudioHandler):
         super().__init__()
         self.sound = pygame.mixer.Sound(sound_path)
 
-    def play_bounce(self):
+    def play_sound(self):
         """Plays the bounce sound effect."""
         self.sound.play()
 
