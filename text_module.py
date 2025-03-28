@@ -33,8 +33,8 @@ class MoveText:
 
 
 class HorizontalMoveText(MoveText):
-    def __init__(self, text, font_size, text_color, speed_y):
-        super().__init__(text, font_size, text_color)
+    def __init__(self, text, font_size, text_color, bounce_sound, speed_y):
+        super().__init__(text, font_size, text_color, bounce_sound)
         self.speed_y = speed_y    
     
     def update(self):
@@ -51,8 +51,8 @@ class HorizontalMoveText(MoveText):
 
 
 class VerticalMoveText(MoveText):
-    def __init__(self, text, font_size, text_color, speed_x):
-        super().__init__(text, font_size, text_color)
+    def __init__(self, text, font_size, text_color, bounce_sound, speed_x):
+        super().__init__(text, font_size, text_color, bounce_sound)
         self.speed_x = speed_x    
     
     def update(self):
@@ -69,8 +69,8 @@ class VerticalMoveText(MoveText):
         
 
 class BounceText(MoveText):
-    def __init__(self, text, font_size, text_color, speed_y, speed_x):
-        super().__init__(text, font_size, text_color)
+    def __init__(self, text, font_size, text_color, bounce_sound, speed_y, speed_x):
+        super().__init__(text, font_size, text_color, bounce_sound)
         self.speed_y = speed_y   
         self.speed_x = speed_x
 
